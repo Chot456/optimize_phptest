@@ -9,6 +9,8 @@
 - include Mysql PDO prepare statement for DB transactions to improve security
 - Added return hint and documentation for every methods for maintainable purposes
 
+
+<h1>Execute the following command to test it</h1>
 Run the commnd within the Project directory to make new .env file
 <pre>cp .env.example .env</pre>
 
