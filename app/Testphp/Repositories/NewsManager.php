@@ -3,7 +3,7 @@
 namespace Testphp\Repositories;
 
 use Exception;
-use Testphp\DBconnet\DB;
+use Testphp\DBconnect\DB;
 use Testphp\Filters\News;
 
 class NewsManager

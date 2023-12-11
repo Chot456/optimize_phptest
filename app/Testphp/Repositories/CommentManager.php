@@ -4,7 +4,7 @@ namespace Testphp\Repositories;
 
 use Exception;
 use PDOException;
-use Testphp\DBconnet\DB;
+use Testphp\DBconnect\DB;
 use Testphp\Filters\Comment;
 
 class CommentManager
@@ -49,7 +49,7 @@ class CommentManager
 	 * @throws Exception If there is an error inserting the comment.
 	 * @return int The ID of the newly inserted comment.
 	 */
-	public function addCommentForNews($body, $newsId)
+	public function addCommentForNews($body, $newsId): int
 	{
 		try {
 			$this->db->beginTransaction();

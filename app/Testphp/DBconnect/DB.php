@@ -1,5 +1,5 @@
 <?php
-namespace Testphp\DBconnet;
+namespace Testphp\DBconnect;
 
 class DB
 {
