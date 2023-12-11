@@ -3,7 +3,6 @@
 namespace Testphp\Repositories;
 
 use Exception;
-use PDOException;
 use Testphp\DBconnect\DB;
 use Testphp\Filters\Comment;
 
@@ -14,7 +13,6 @@ class CommentManager
 	/**
 	 * Initializes a new instance of the class.
 	 *
-	 * @throws Some_Exception_Class description of exception
 	 * @return void
 	 */
 	public function __construct()
@@ -69,7 +67,7 @@ class CommentManager
 	 * Deletes comments from the database.
 	 *
 	 * @param array $ids The array of comment IDs to be deleted.
-	 * @throws PDOException If there is an error executing the SQL statement.
+	 * @throws Exception If there is an error executing the SQL statement.
 	 * @return int The number of rows affected by the delete statement.
 	 */
 	public function deleteComment($ids = []): int
@@ -78,11 +76,15 @@ class CommentManager
 			return 0;
 		}
 
-		$this->db->beginTransaction();
-		$stmt = $this->db->prepare("DELETE FROM `comment` WHERE `id` IN (?)");
-		$stmt->execute([$ids]);
-		$this->db->commit();
-
-		return $stmt->rowCount();
+		try {
+			$this->db->beginTransaction();
+			$stmt = $this->db->prepare("DELETE FROM `comment` WHERE `id` IN (?)");
+			$stmt->execute([$ids]);
+			$this->db->commit();
+			return $stmt->rowCount();
+		} catch (\Throwable $th) {
+			$this->db->rollBack();
+			throw new Exception("Error: " . $th->getMessage());
+		}
 	}
 }
